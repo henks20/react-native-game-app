@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { View, StyleSheet, StatusBar, Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import { Title } from "../../components/Title/Title";
 import { PrimaryButton } from "../../components/PrimaryButton/PrimaryButton";
@@ -61,14 +62,20 @@ export const GameScreen = (props) => {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
-        <InstructionText>Higher or lower?</InstructionText>
-        <View>
-          <PrimaryButton onPress={() => nextGuessHandler("lower")}>
-            -
-          </PrimaryButton>
-          <PrimaryButton onPress={() => nextGuessHandler("higher")}>
-            +
-          </PrimaryButton>
+        <InstructionText style={styles.instructionText}>
+          Higher or lower?
+        </InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("lower")}>
+              <Ionicons name="md-remove" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton onPress={() => nextGuessHandler("higher")}>
+              <Ionicons name="md-add" size={24} color="white" />
+            </PrimaryButton>
+          </View>
         </View>
       </Card>
     </View>
@@ -80,5 +87,14 @@ const styles = StyleSheet.create({
     flex: 1,
     // Note: It's solution for Android (iOS has SafeAreaView in App.js)
     padding: StatusBar.currentHeight,
+  },
+  instructionText: {
+    marginBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: "row",
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
