@@ -1,9 +1,12 @@
 import { View, Image, StyleSheet, Text } from "react-native";
 
 import { Title } from "../../components/Title/Title";
+import { PrimaryButton } from "../../components/PrimaryButton/PrimaryButton";
 import { Colors } from "../../utils/colors";
 
-export const GameOverScreen = () => {
+export const GameOverScreen = (props) => {
+  const { roundsNumber, userNumber, onStartNewGame } = props;
+
   return (
     <View style={styles.rootContainer}>
       <Title>GAME OVER!</Title>
@@ -14,8 +17,13 @@ export const GameOverScreen = () => {
         />
       </View>
       <View>
-        <Text>Your phone needed X rouns to guess the number Y.</Text>
+        <Text style={styles.summaryText}>
+          Your phone needed <Text style={styles.highlight}>{roundsNumber}</Text>{" "}
+          rounds to guess the number{" "}
+          <Text style={styles.highlight}>{userNumber}</Text>.
+        </Text>
       </View>
+      <PrimaryButton onPress={onStartNewGame}>Start new game</PrimaryButton>
     </View>
   );
 };
@@ -39,5 +47,15 @@ const styles = StyleSheet.create({
   img: {
     width: "100%",
     height: "100%",
+  },
+  summaryText: {
+    fontFamily: "open-sans",
+    fontSize: 24,
+    textAlign: "center",
+    marginBottom: 24,
+  },
+  highlight: {
+    fontFamily: "open-sans-bold",
+    color: Colors.primary500,
   },
 });
