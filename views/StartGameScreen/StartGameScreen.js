@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { View, TextInput, StyleSheet, Alert } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+  useWindowDimensions,
+} from "react-native";
 
 import { Colors } from "../../utils/colors";
 import { PrimaryButton } from "../../components/PrimaryButton/PrimaryButton";
@@ -11,6 +17,8 @@ export const StartGameScreen = (props) => {
   const { onPickNumber } = props;
   // Note: Similarly to web, input always be a string
   const [enteredValue, setEnteredValue] = useState("");
+
+  const { height } = useWindowDimensions();
 
   const numberInputHandler = (enteredText) => {
     setEnteredValue(enteredText);
@@ -35,8 +43,10 @@ export const StartGameScreen = (props) => {
     onPickNumber(enteredNumber);
   };
 
+  const marginTopDistance = height < 380 ? 30 : 100;
+
   return (
-    <View style={styles.rootContaier}>
+    <View style={[styles.rootContaier, { marginTop: marginTopDistance }]}>
       <Title>Guess my number</Title>
       <Card>
         <InstructionText>Enter a number</InstructionText>
@@ -62,10 +72,14 @@ export const StartGameScreen = (props) => {
   );
 };
 
+// Note: This is execute only once during 1st mounting file
+// to make is dynamic, use useWindowDimensions in the func body!
+// const deviceHeight = Dimensions.get("window").height;
+
 const styles = StyleSheet.create({
   rootContaier: {
     flex: 1,
-    marginTop: 100,
+    // marginTop: deviceHeight < 380 ? 30 : 100,
     alignItems: "center",
   },
   input: {
