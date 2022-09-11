@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // Note: It's solution for Android (iOS has SafeAreaView in App.js)
     padding: StatusBar.currentHeight,
+    alignItems: "center",
   },
   instructionText: {
     marginBottom: 12,
